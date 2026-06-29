@@ -1,5 +1,5 @@
 ---
-title: "Configure your Mintlify docs with docs.json"
+title: "Configure your Mintlify site with docs.json settings"
 sidebarTitle: "Settings"
 description: "The docs.json file controls your site name, theme, colors, logo, favicon, navbar, and footer. Learn every top-level option with examples."
 ---
@@ -78,7 +78,7 @@ The following example shows all major top-level fields together. You can use it 
     }
   },
   "contextual": {
-    "options": ["copy", "chatgpt", "claude"]
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
   }
 }
 ```
@@ -157,7 +157,7 @@ The following example shows all major top-level fields together. You can use it 
   Controls the contextual action menu that appears when readers select text on a page.
 
   <ParamField path="contextual.options" type="array">
-    An array of enabled actions. Available options: `"copy"`, `"chatgpt"`, `"claude"`.
+    An array of enabled actions. Available options: `"copy"`, `"view"`, `"chatgpt"`, `"claude"`, `"perplexity"`, `"mcp"`, `"cursor"`, `"vscode"`.
   </ParamField>
 </ParamField>
 

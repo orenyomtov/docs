@@ -1,7 +1,7 @@
 ---
-title: "Deploy your Mintlify docs site from GitHub"
+title: "Deploy your Mintlify docs site automatically via GitHub"
 sidebarTitle: "Deployment"
-description: "Mintlify automatically builds and deploys your docs on every push to your connected GitHub branch. No build configuration needed."
+description: "Mintlify automatically builds and deploys your docs on every push to your connected GitHub branch — no build scripts or servers to manage."
 ---
 
 Mintlify uses a Git-connected workflow — every push to your connected branch automatically triggers a build and deploys your docs live. There's no CI/CD pipeline to configure, no build scripts to write, and no servers to manage. Connect your repo once and Mintlify handles everything from there.
@@ -12,19 +12,19 @@ Mintlify uses a Git-connected workflow — every push to your connected branch a
   <Step title="Sign in to the Mintlify dashboard">
     Go to [https://dashboard.mintlify.com](https://dashboard.mintlify.com) and sign in with your account.
   </Step>
-  <Step title="Create a new project">
-    Click **New project** and authorize the Mintlify GitHub App when prompted. This grants Mintlify read access to the repositories you select — you can scope it to specific repos or your entire organization.
+  <Step title="Install the Mintlify GitHub App">
+    Click **New project** and authorize the Mintlify GitHub App when prompted. You can also install the app directly from [dashboard.mintlify.com/settings/organization/github-app](https://dashboard.mintlify.com/settings/organization/github-app). This grants Mintlify read access to the repositories you select — you can scope it to specific repos or your entire organization.
   </Step>
   <Step title="Select your repository and branch">
     Choose the repository that contains your docs and select the branch you want to deploy from. Most teams use `main`, but you can point Mintlify at any branch.
   </Step>
   <Step title="Wait for the first build">
-    Once you confirm your selection, Mintlify triggers your first build automatically. When it completes, your docs will be live at `{subdomain}.mintlify.app`.
+    Once you confirm your selection, Mintlify triggers your first build automatically. When it completes, your docs will be live at your project's `*.mintlify.app` URL, shown in the dashboard.
   </Step>
 </Steps>
 
 <Tip>
-  Before making any changes, confirm that your first deploy completes successfully and your docs load at the default `{subdomain}.mintlify.app` URL. This ensures your baseline configuration is correct before you layer in customizations.
+  Before making any changes, confirm that your first deploy completes successfully and your docs load at your `*.mintlify.app` URL. This ensures your baseline configuration is correct before you layer in customizations like a [custom domain](/publishing/custom-domain).
 </Tip>
 
 <Note>

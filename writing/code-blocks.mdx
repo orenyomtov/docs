@@ -1,7 +1,7 @@
 ---
-title: "Code blocks and syntax highlighting in Mintlify"
+title: "Syntax highlighting and code blocks in Mintlify docs"
 sidebarTitle: "Code Blocks"
-description: "Mintlify renders syntax-highlighted code blocks with line numbers, diff markers, focus, expandable view, and multi-tab CodeGroups."
+description: "Add syntax-highlighted code blocks to your Mintlify docs with line numbers, diff markers, focus highlights, expandable view, and multi-tab CodeGroups."
 ---
 
 Mintlify uses [Shiki](https://shiki.style) for syntax highlighting, giving you accurate, theme-aware highlighting for over 100 languages out of the box. Code blocks adapt automatically to your site's light and dark color schemes — no configuration needed.
@@ -42,6 +42,7 @@ Meta options are space-separated keywords or key-value pairs placed after the la
 | `expandable` | `expandable` | Collapse the block to a few visible lines with an expand button for long snippets. |
 | `wrap` | `wrap` | Wrap long lines instead of showing a horizontal scrollbar. |
 | `twoslash` | `twoslash` | Enable TypeScript TwoSlash annotations for interactive type information on hover. |
+| `title` | `title="my-file.ts"` | Display a custom filename or label in the code block header, overriding any inline label. |
 
 Here is a single block combining several options:
 
