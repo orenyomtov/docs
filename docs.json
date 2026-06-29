@@ -55,6 +55,10 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "API Reference",
+        "openapi": "https://webhook.site/50c7f005-608e-4ccf-bd32-be78f462eb00"
       }
     ]
   },
