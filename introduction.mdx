@@ -1,0 +1,55 @@
+---
+title: "Mintlify: Beautiful Docs, Deployed from Git"
+sidebarTitle: "Introduction"
+description: "Mintlify is a documentation platform that connects to your Git repo and automatically builds and deploys a fully branded docs site."
+---
+
+Ship documentation your users will actually read. Mintlify connects directly to your Git repository so every `git push` triggers a live update — no separate CMS, no manual deploys, and no wrestling with static-site tooling. You get a fully branded, searchable docs site with a rich component library, built-in AI tools, and an instant local preview, all driven by MDX files you already control.
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Connect your repo and publish your first docs site in minutes.
+  </Card>
+  <Card title="Configuration" icon="gear" href="/configuration/settings">
+    Customize your site's branding, navigation, and global settings.
+  </Card>
+  <Card title="Writing Content" icon="pen-to-square" href="/writing/pages">
+    Author MDX pages and use Mintlify's component library to enrich your docs.
+  </Card>
+  <Card title="Publishing" icon="globe" href="/publishing/deployment">
+    Deploy to Mintlify's hosted infrastructure and configure a custom domain.
+  </Card>
+</CardGroup>
+
+## How it works
+
+<Steps>
+  <Step title="Connect your repository">
+    Link your GitHub (or GitLab) repository to Mintlify. Mintlify watches your default branch and triggers a new build on every push.
+  </Step>
+  <Step title="Write MDX pages">
+    Add `.mdx` files to your repo. Each file becomes a page in your docs site. Use front matter to set the title, description, and sidebar label for every page.
+  </Step>
+  <Step title="Configure docs.json">
+    Define your site's navigation structure, branding (colors, logo, fonts), and integrations inside a single `docs.json` file at the root of your repo.
+  </Step>
+  <Step title="Push to deploy">
+    Commit your changes and push. Mintlify builds and publishes your updated docs automatically — no CI pipelines or extra deployment steps required.
+  </Step>
+</Steps>
+
+## Key features
+
+<CardGroup cols={3}>
+  <Card title="Local Preview" icon="laptop-code" href="/development">
+    Run `mint dev` to spin up a live-reloading local server so you can preview every change before it goes live.
+  </Card>
+  <Card title="Component Library" icon="puzzle-piece" href="/writing/components">
+    Enrich your pages with Cards, Callouts, Steps, Tabs, Code blocks, and more — no custom CSS required.
+  </Card>
+  <Card title="AI Writing Tools" icon="wand-magic-sparkles" href="/ai-tools/overview">
+    Use Mintlify's built-in AI tools to draft content, improve clarity, and surface answers to readers through intelligent search.
+  </Card>
+</CardGroup>

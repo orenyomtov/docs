@@ -1,0 +1,180 @@
+---
+title: "Mintlify components reference for MDX pages"
+sidebarTitle: "Components"
+description: "Use built-in Mintlify components — cards, callouts, steps, tabs, accordions, and more — to create rich, interactive documentation pages."
+---
+
+Mintlify ships a library of interactive UI components that you can use anywhere in your MDX pages to organize content, highlight key information, and guide readers through complex material. Every component is available globally — you never need to import anything.
+
+<Note>
+  All Mintlify components are globally available in every `.mdx` file. There are no import statements required.
+</Note>
+
+## Cards
+
+Use `<Card>` and `<CardGroup>` to build navigation grids, feature overviews, or quick-start sections. Cards support a title, an icon, an optional href, and a short description as children.
+
+```mdx
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Deploy your first docs site in under five minutes.
+  </Card>
+  <Card title="Configuration" icon="gear" href="/configuration/settings">
+    Customize your site's name, colors, and logo.
+  </Card>
+  <Card title="Custom Domain" icon="globe" href="/publishing/custom-domain">
+    Serve your docs on your own domain.
+  </Card>
+  <Card title="AI Tools" icon="sparkles" href="/ai-tools/overview">
+    Add an AI assistant to your docs.
+  </Card>
+</CardGroup>
+```
+
+Set `cols` to `1`, `2`, or `3` to control the grid width. Cards without an `href` render as static tiles.
+
+## Callouts
+
+Callouts draw attention to important information without interrupting the flow of prose. Four variants are available, each with a distinct visual style:
+
+```mdx
+<Note>
+  Use this for supplementary information the reader might find useful.
+</Note>
+
+<Tip>
+  Use this to share a best practice or a shortcut that makes things easier.
+</Tip>
+
+<Warning>
+  Use this for critical information — mistakes here could break something.
+</Warning>
+
+<Info>
+  Use this for neutral context or background information.
+</Info>
+```
+
+Choose the variant that matches the nature of the message. Overusing `<Warning>` makes genuine warnings easier to overlook.
+
+## Steps
+
+Use `<Steps>` and `<Step>` for any sequential process — installation, configuration, or onboarding flows. Each step renders as a numbered item with a title and arbitrary content.
+
+````mdx
+<Steps>
+  <Step title="Install the CLI">
+    Run the following command to install the Mintlify CLI globally:
+
+    ```bash
+    npm install -g mintlify
+    ```
+  </Step>
+  <Step title="Start the dev server">
+    Navigate to your docs folder and run:
+
+    ```bash
+    mintlify dev
+    ```
+
+    Your docs will be available at `http://localhost:3000`.
+  </Step>
+  <Step title="Push to deploy">
+    Commit and push your changes to your connected Git branch. Mintlify
+    deploys automatically on every push.
+  </Step>
+</Steps>
+````
+
+Steps can contain any content — paragraphs, code blocks, callouts, and even nested components.
+
+## Accordion
+
+Use `<Accordion>` to create collapsible sections, ideal for FAQ pages, optional deep-dives, or anything you want available without cluttering the page. Wrap multiple accordions in `<AccordionGroup>` to visually group them.
+
+```mdx
+<AccordionGroup>
+  <Accordion title="Do I need to know React to use Mintlify?">
+    No. You write standard Markdown for prose and use Mintlify's built-in
+    components for interactivity. No React knowledge is required.
+  </Accordion>
+  <Accordion title="Can I use custom components?">
+    Yes. You can define and import your own React components inside MDX files,
+    or use the globally available built-in components with no imports needed.
+  </Accordion>
+  <Accordion title="How do I add a custom domain?">
+    See the [custom domain guide](/publishing/custom-domain) for step-by-step
+    instructions.
+  </Accordion>
+</AccordionGroup>
+```
+
+## Tabs
+
+Use `<Tabs>` and `<Tab>` to present alternative versions of the same content — for example, instructions for different operating systems, languages, or frameworks.
+
+````mdx
+<Tabs>
+  <Tab title="macOS / Linux">
+    ```bash
+    export MINTLIFY_API_KEY="your-api-key"
+    ```
+  </Tab>
+  <Tab title="Windows (PowerShell)">
+    ```powershell
+    $env:MINTLIFY_API_KEY = "your-api-key"
+    ```
+  </Tab>
+  <Tab title="Windows (CMD)">
+    ```batch
+    set MINTLIFY_API_KEY=your-api-key
+    ```
+  </Tab>
+</Tabs>
+````
+
+Each tab renders its content independently. Tabs are a good alternative to long conditional prose ("If you're on Windows, do X; if you're on Mac, do Y…").
+
+## API fields
+
+Use `<ParamField>` and `<ResponseField>` to document request parameters and response shapes in API reference pages. Use `<Expandable>` to nest child fields inside an object or array field.
+
+```mdx
+<ParamField path="user_id" type="string" required>
+  The unique identifier of the user. Found in your dashboard under **Users**.
+</ParamField>
+
+<ParamField body="options" type="object">
+  Optional configuration for the request.
+
+  <Expandable title="options">
+    <ParamField body="notify" type="boolean" default="true">
+      Send an email notification to the user after the action completes.
+    </ParamField>
+    <ParamField body="tags" type="string[]">
+      An array of tag strings to attach to the resource.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ResponseField name="id" type="string">
+  The unique identifier of the newly created resource.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the resource was created.
+</ResponseField>
+```
+
+`<ParamField>` supports `path`, `query`, and `body` as the field location attribute, a `type`, a `required` flag, and a `default` value.
+
+---
+
+<CardGroup cols={2}>
+  <Card title="Code Blocks" icon="code" href="/writing/code-blocks">
+    Add syntax-highlighted code, diffs, line numbers, and multi-tab code groups.
+  </Card>
+  <Card title="Pages" icon="file" href="/writing/pages">
+    Learn how to create MDX pages and configure frontmatter fields.
+  </Card>
+</CardGroup>

@@ -1,0 +1,137 @@
+---
+title: "Code blocks and syntax highlighting in Mintlify"
+sidebarTitle: "Code Blocks"
+description: "Mintlify renders syntax-highlighted code blocks with line numbers, diff markers, focus, expandable view, and multi-tab CodeGroups."
+---
+
+Mintlify uses [Shiki](https://shiki.style) for syntax highlighting, giving you accurate, theme-aware highlighting for over 100 languages out of the box. Code blocks adapt automatically to your site's light and dark color schemes — no configuration needed.
+
+## Basic code blocks
+
+Wrap code in triple backticks and specify a language tag immediately after the opening fence. The language tag is required for syntax highlighting.
+
+````mdx
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+```
+````
+
+Mintlify supports all languages Shiki recognizes, including `javascript`, `typescript`, `python`, `bash`, `json`, `yaml`, `sql`, `css`, `mdx`, and many more.
+
+You can add an optional filename or label after the language tag to display a header above the code block:
+
+````mdx
+```typescript src/auth.ts
+export function verifyToken(token: string): boolean {
+  return token.startsWith("sk_");
+}
+```
+````
+
+## Meta options
+
+Meta options are space-separated keywords or key-value pairs placed after the language tag on the opening fence. They let you control how the code block is displayed.
+
+| Option | Example | Description |
+|---|---|---|
+| `lines` | `lines` | Show line numbers on the left side of the block. |
+| `highlight` | `highlight={1-3,5}` | Highlight specific lines with a background accent. Accepts ranges and comma-separated values. |
+| `focus` | `focus={2,4-5}` | Dim all lines except the focused ones, drawing the reader's eye to key lines. |
+| `expandable` | `expandable` | Collapse the block to a few visible lines with an expand button for long snippets. |
+| `wrap` | `wrap` | Wrap long lines instead of showing a horizontal scrollbar. |
+| `twoslash` | `twoslash` | Enable TypeScript TwoSlash annotations for interactive type information on hover. |
+
+Here is a single block combining several options:
+
+````mdx
+```typescript src/config.ts lines highlight={3-5} expandable
+import { defineConfig } from "mintlify";
+
+export default defineConfig({
+  name: "My Docs",
+  primaryColor: "#0ea5e9",
+  favicon: "/favicon.svg",
+  navigation: [
+    { group: "Getting Started", pages: ["introduction", "quickstart"] },
+    { group: "Writing", pages: ["writing/pages", "writing/components"] },
+  ],
+});
+```
+````
+
+## Diff markers
+
+To show additions and deletions in a code block — useful for migration guides or before/after comparisons — use inline `// [!code ++]` and `// [!code --]` comments. Keep the language tag as the actual language of the code, not `diff`.
+
+````mdx
+```javascript
+import { createClient } from "old-sdk"; // [!code --]
+import { createClient } from "@mintlify/sdk"; // [!code ++]
+
+const client = createClient({
+  apiKey: process.env.API_KEY,
+  timeout: 5000, // [!code --]
+  timeoutMs: 5000, // [!code ++]
+});
+```
+````
+
+Mintlify renders additions with a green background and deletions with a red background, matching familiar diff conventions.
+
+## Code groups
+
+Use `<CodeGroup>` to display multiple code blocks in a tabbed interface. This is ideal for showing the same command or snippet in multiple languages, package managers, or environments.
+
+Each block inside `<CodeGroup>` needs its own language tag and a label (either a filename string or a `title` attribute) — the label becomes the tab name.
+
+````mdx
+<CodeGroup>
+```bash npm
+npm install @mintlify/sdk
+```
+```bash yarn
+yarn add @mintlify/sdk
+```
+```bash pnpm
+pnpm add @mintlify/sdk
+```
+</CodeGroup>
+````
+
+You can mix languages inside a `<CodeGroup>`. For example, you might show a request in `curl`, `python`, and `javascript` side by side:
+
+````mdx
+<CodeGroup>
+```bash curl
+curl -X POST https://api.example.com/v1/users \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Ada Lovelace", "email": "ada@example.com"}'
+```
+```python Python
+import requests
+
+response = requests.post(
+    "https://api.example.com/v1/users",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    json={"name": "Ada Lovelace", "email": "ada@example.com"},
+)
+```
+```typescript TypeScript
+const response = await fetch("https://api.example.com/v1/users", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${API_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ name: "Ada Lovelace", email: "ada@example.com" }),
+});
+```
+</CodeGroup>
+````
+
+<Warning>
+  Do not wrap code blocks in custom HTML elements, `<div>` wrappers, or inline styles. Mintlify handles all code block theming, scrolling, and copy-button behavior automatically. Custom wrappers will break the built-in styling and dark mode support.
+</Warning>

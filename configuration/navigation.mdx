@@ -1,0 +1,170 @@
+---
+title: "Structure your docs navigation with tabs and groups"
+sidebarTitle: "Navigation"
+description: "Define tabs, groups, and page order in docs.json. Learn how to build multi-tab navigation, nested groups, and global anchors."
+---
+
+Your site's sidebar navigation is defined entirely inside `docs.json`. The `navigation` field controls which pages appear, how they are grouped, and whether your site uses a single section or multiple top-level tabs. Because navigation lives in version control alongside your content, every structural change is tracked and reviewable just like any other code change.
+
+<Warning>
+  The `navigation` field must be a **JSON object** — never an array. Wrapping it in `[...]` is a common mistake that will cause your build to fail.
+</Warning>
+
+## Pages, groups, and tabs
+
+Mintlify navigation is built from three levels of hierarchy:
+
+| Level | Key | Purpose |
+|-------|-----|---------|
+| **Page** | `"pages"` array entry | A single MDX file; the slug maps to the file path (no `.mdx` extension) |
+| **Group** | `{ "group": "...", "pages": [...] }` | A labeled section containing one or more pages |
+| **Tab** | `{ "tab": "...", "groups": [...] }` | A top-level tab in the navbar containing one or more groups |
+
+You can use just `groups` for simple sites, or add `tabs` when your docs have multiple distinct areas (for example, a user guide and an API reference).
+
+<Note>
+  Page slugs must exactly match the MDX file path relative to the repo root, without the `.mdx` extension. For example, the file `guides/quickstart.mdx` is referenced as `"guides/quickstart"`.
+</Note>
+
+## Simple navigation with groups
+
+Use top-level `groups` when your docs fit in a single sidebar section — no tabs needed.
+
+```json
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": ["introduction", "quickstart", "development"]
+      },
+      {
+        "group": "Configuration",
+        "pages": [
+          "configuration/settings",
+          "configuration/navigation",
+          "configuration/branding"
+        ]
+      },
+      {
+        "group": "Publishing",
+        "pages": [
+          "publishing/deployment",
+          "publishing/custom-domain",
+          "publishing/versioning"
+        ]
+      }
+    ]
+  }
+}
+```
+
+## Multi-tab navigation with tabs
+
+Use `tabs` when you want to split your docs into separate top-level sections — for example, a user guide, an API reference, and a changelog. Each tab has its own set of groups and pages.
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "quickstart", "development"]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/settings",
+              "configuration/navigation",
+              "configuration/branding"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["api-reference/introduction"]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api-reference/users/list",
+              "api-reference/users/create",
+              "api-reference/users/delete"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Releases",
+            "pages": ["changelog/2025", "changelog/2024"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## Global anchors
+
+Global anchors let you pin external links (or internal links outside normal navigation) to the bottom of the sidebar. They are useful for linking to your API playground, status page, community forum, or any other resource you want readers to always be able to find.
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "quickstart"]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "API Reference",
+          "href": "https://api.acme.com",
+          "icon": "code"
+        },
+        {
+          "anchor": "Community",
+          "href": "https://discord.gg/acme",
+          "icon": "discord"
+        },
+        {
+          "anchor": "Status",
+          "href": "https://status.acme.com",
+          "icon": "signal"
+        }
+      ]
+    }
+  }
+}
+```
+
+Each anchor takes:
+- `anchor` — the label shown in the sidebar
+- `href` — the destination URL
+- `icon` — any [Font Awesome](https://fontawesome.com/icons) icon name
+
+## Tips for scannable navigation
+
+- **Keep group and tab names short** — aim for 1–3 words. "Get Started", "API Reference", and "Guides" are easier to scan than "How to Get Started Using Our Product".
+- **Lead with action words** — "Quickstart", "Deploy", "Configure" tell readers what they will accomplish.
+- **Put the most important content first** — readers scan top to bottom; don't bury your quickstart halfway down the sidebar.
+- **Limit group size** — groups with more than seven or eight pages can feel overwhelming. Consider splitting them or promoting sub-topics to their own group.
+- **Mirror your product's mental model** — organize pages the way your users think about your product, not the way your team is organized internally.

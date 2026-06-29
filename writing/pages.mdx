@@ -1,0 +1,71 @@
+---
+title: "Write and structure documentation pages in MDX"
+sidebarTitle: "Pages"
+description: "Every Mintlify page is an MDX file with YAML frontmatter. Learn how to set titles, descriptions, icons, and layout modes for your pages."
+---
+
+Every page in your Mintlify docs site is an MDX file — a superset of Markdown that lets you embed JSX components alongside standard prose. You write content in plain Markdown, drop in powerful built-in components wherever you need them, and Mintlify handles rendering, navigation, and theming automatically.
+
+## Creating a page
+
+To create a new page, add a `.mdx` file anywhere inside your docs repository. The file path becomes the URL slug — for example, `guides/authentication.mdx` is served at `/guides/authentication`.
+
+Every page starts with a YAML frontmatter block at the very top of the file:
+
+```mdx guides/authentication.mdx
+---
+title: "Set up authentication"
+sidebarTitle: "Authentication"
+description: "Learn how to add API key and OAuth authentication to your integration in under 10 minutes."
+icon: "lock"
+---
+
+Your page content starts here.
+```
+
+<Tip>
+  Keep filenames as lowercase, hyphen-separated slugs that match the URL you want — for example, `getting-started.mdx` for `/getting-started`. Avoid spaces, uppercase letters, and special characters.
+</Tip>
+
+## Frontmatter reference
+
+These fields are supported in the frontmatter of any MDX page:
+
+<ParamField path="title" type="string" required>
+  The page title displayed in the browser tab, the page header, and search results. Aim for 50–60 characters. This is the only required frontmatter field.
+</ParamField>
+
+<ParamField path="sidebarTitle" type="string">
+  A shorter label shown in the sidebar navigation. Use this when your full `title` is too long to fit neatly in the sidebar — 1 to 3 words is ideal. Falls back to `title` if omitted.
+</ParamField>
+
+<ParamField path="description" type="string">
+  A meta description used for SEO and previews. Aim for 130–155 characters. It appears below the page title on the page itself and in search engine results.
+</ParamField>
+
+<ParamField path="icon" type="string">
+  A [Font Awesome](https://fontawesome.com/icons) icon name displayed next to the page title in the sidebar. Use the icon's kebab-case name, for example `"rocket"` or `"circle-check"`.
+</ParamField>
+
+<ParamField path="mode" type="string">
+  Controls the page layout. Set to `"wide"` to enable a full-width layout with no right-hand table of contents. Omit this field to use the default centered layout.
+</ParamField>
+
+## Adding to navigation
+
+Creating an MDX file is not enough on its own — you also need to register the page in your `docs.json` configuration file for it to appear in the sidebar. Pages that are not listed in navigation are still accessible by direct URL, but they won't show up in the sidebar or be discoverable through internal search.
+
+See the [navigation configuration guide](/configuration/navigation) for full details on how to organize pages into groups, tabs, and nested sections.
+
+## Page layout
+
+By default, Mintlify renders pages in a centered layout with a table of contents on the right side. For landing pages, overview pages, or any page where you want more horizontal space, you can switch to the full-width layout:
+
+```mdx
+---
+title: "Product overview"
+mode: "wide"
+---
+```
+
+The `wide` mode removes the right-hand table of contents and expands the content area to fill the full page width. This works particularly well with `<CardGroup>` grids and other component-heavy layouts.

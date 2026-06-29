@@ -1,0 +1,144 @@
+---
+title: "Version your docs with tabs and dropdown navigation"
+sidebarTitle: "Versioning"
+description: "Maintain multiple versions of your Mintlify docs using tabs or dropdown navigation in docs.json to let readers switch between releases."
+---
+
+Mintlify doesn't have a built-in versioning system that automatically snapshots your docs. Instead, you manage multiple versions directly through your navigation configuration in `docs.json`. This gives you full control over what each version contains and how readers switch between them — using either **tabs** or **dropdowns** depending on how prominent you want the version selector to be.
+
+<Note>
+  Versioning in Mintlify is entirely manual. There's no auto-versioning, no branching magic, and no snapshot tooling — you decide the structure, file layout, and navigation labels for each version yourself.
+</Note>
+
+## Approach 1: Tabs
+
+Tabs display version options as top-level navigation tabs across your docs site. This works well when you have two or three active versions that readers might legitimately need to switch between.
+
+Add a `tabs` array inside the `navigation` object in your `docs.json`, giving each version its own tab with its own groups and pages:
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "v2",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["v2/introduction", "v2/quickstart"]
+          },
+          {
+            "group": "Guides",
+            "pages": ["v2/guides/authentication", "v2/guides/rate-limits"]
+          }
+        ]
+      },
+      {
+        "tab": "v1 (Legacy)",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["v1/introduction", "v1/quickstart"]
+          },
+          {
+            "group": "Guides",
+            "pages": ["v1/guides/authentication", "v1/guides/rate-limits"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Readers see a tab bar at the top of the site and can click between **v2** and **v1 (Legacy)** without leaving the docs.
+
+## Approach 2: Dropdowns
+
+Dropdowns present versions in a collapsible selector, keeping the top-level navigation cleaner. This is a good fit when you have many versions or want to de-emphasize older releases.
+
+Use the `dropdowns` key inside `navigation` instead of `tabs`:
+
+```json
+{
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "v2",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["v2/introduction", "v2/quickstart"]
+          },
+          {
+            "group": "API Reference",
+            "pages": ["v2/api/overview", "v2/api/endpoints"]
+          }
+        ]
+      },
+      {
+        "dropdown": "v1 (Legacy)",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["v1/introduction", "v1/quickstart"]
+          },
+          {
+            "group": "API Reference",
+            "pages": ["v1/api/overview", "v1/api/endpoints"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+The dropdown label appears in the sidebar or navigation bar and expands to let readers choose a version.
+
+## Organizing version content
+
+Keep each version's pages in its own directory at the root of your repository. This makes it easy to identify which files belong to which version and avoids accidental cross-version page references.
+
+A typical folder structure looks like this:
+
+```
+docs/
+├── docs.json
+├── v2/
+│   ├── introduction.mdx
+│   ├── quickstart.mdx
+│   └── guides/
+│       ├── authentication.mdx
+│       └── rate-limits.mdx
+└── v1/
+    ├── introduction.mdx
+    ├── quickstart.mdx
+    └── guides/
+        ├── authentication.mdx
+        └── rate-limits.mdx
+```
+
+Each version folder mirrors the same logical structure, and page paths in `docs.json` reflect the directory (e.g. `v2/introduction`, `v1/guides/authentication`).
+
+<Tip>
+  Always put your latest, most current version first in the `tabs` or `dropdowns` array. Mintlify renders the first entry as the default view, so new visitors land on your current docs automatically.
+</Tip>
+
+## Archive old versions
+
+When a version is no longer actively maintained, you don't need to remove it — just make it clear to readers that it's legacy content. The most straightforward approach is to label it explicitly in the tab or dropdown name, for example:
+
+- `"v1 (Legacy)"`
+- `"v0.9 (Archived)"`
+- `"2023 Release (EOL)"`
+
+You can also add a `<Warning>` component at the top of the legacy version's landing page to let readers know they're viewing outdated documentation and link them to the current version:
+
+```mdx
+<Warning>
+  You're viewing the v1 (Legacy) docs. For the latest features and APIs, see the [v2 documentation](/v2/introduction).
+</Warning>
+```
+
+This keeps old content accessible for users who haven't migrated yet without misleading anyone who lands there from a search engine or old link.

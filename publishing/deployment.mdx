@@ -1,0 +1,66 @@
+---
+title: "Deploy your Mintlify docs site from GitHub"
+sidebarTitle: "Deployment"
+description: "Mintlify automatically builds and deploys your docs on every push to your connected GitHub branch. No build configuration needed."
+---
+
+Mintlify uses a Git-connected workflow — every push to your connected branch automatically triggers a build and deploys your docs live. There's no CI/CD pipeline to configure, no build scripts to write, and no servers to manage. Connect your repo once and Mintlify handles everything from there.
+
+## Connect your repo
+
+<Steps>
+  <Step title="Sign in to the Mintlify dashboard">
+    Go to [https://dashboard.mintlify.com](https://dashboard.mintlify.com) and sign in with your account.
+  </Step>
+  <Step title="Create a new project">
+    Click **New project** and authorize the Mintlify GitHub App when prompted. This grants Mintlify read access to the repositories you select — you can scope it to specific repos or your entire organization.
+  </Step>
+  <Step title="Select your repository and branch">
+    Choose the repository that contains your docs and select the branch you want to deploy from. Most teams use `main`, but you can point Mintlify at any branch.
+  </Step>
+  <Step title="Wait for the first build">
+    Once you confirm your selection, Mintlify triggers your first build automatically. When it completes, your docs will be live at `{subdomain}.mintlify.app`.
+  </Step>
+</Steps>
+
+<Tip>
+  Before making any changes, confirm that your first deploy completes successfully and your docs load at the default `{subdomain}.mintlify.app` URL. This ensures your baseline configuration is correct before you layer in customizations.
+</Tip>
+
+<Note>
+  Your `docs.json` configuration file must be located at the root of your repository. If Mintlify can't find it there, the build will fail.
+</Note>
+
+## Deploy on push
+
+After your initial setup, deployment is fully automatic. Every time you push a commit to your connected branch, Mintlify detects the change, rebuilds your docs, and deploys the updated site — typically within a minute or two.
+
+For example, after editing a page locally:
+
+```bash
+git add docs/my-page.mdx
+git commit -m "docs: update getting started guide"
+git push origin main
+```
+
+As soon as that push lands, Mintlify starts a new build. You don't need to trigger anything manually.
+
+## View deploy status
+
+You can monitor the status of every build from the Mintlify dashboard:
+
+1. Open [https://dashboard.mintlify.com](https://dashboard.mintlify.com) and select your project.
+2. Navigate to the **Deployments** tab to see a list of all recent builds.
+3. Click any deployment entry to view the full build logs, including any errors or warnings.
+
+Build status is also shown inline — a green checkmark means the deployment succeeded; a red indicator means something went wrong. Use the logs to diagnose and fix any build failures.
+
+## Trigger a manual redeploy
+
+If you need to redeploy without pushing a new commit — for example, after updating a dashboard setting or rotating an integration — you can trigger a redeploy manually:
+
+1. Go to your project in the [Mintlify dashboard](https://dashboard.mintlify.com).
+2. Open the **Deployments** tab.
+3. Click the **Redeploy** button next to the most recent successful deployment.
+
+Mintlify will rebuild and redeploy from the same commit, picking up any configuration changes you've made in the dashboard since the last build.

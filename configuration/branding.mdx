@@ -1,0 +1,146 @@
+---
+title: "Customize colors, logo, and theme in Mintlify"
+sidebarTitle: "Branding"
+description: "Set your brand colors, choose a theme, and configure your logo and favicon in docs.json to match your product's visual identity."
+---
+
+All of your site's visual branding is driven by `docs.json`. There is no separate admin panel or CSS file to maintain — your theme, colors, logo, and favicon are all declared in one place alongside the rest of your configuration. This means branding changes are version-controlled, reviewable in pull requests, and instantly deployed when you push to your connected branch.
+
+## Theme selection
+
+Mintlify ships with seven built-in themes. Each theme comes with its own layout, typography scale, component style, and spacing — choosing the right one is the fastest way to match your product's personality.
+
+| Theme | Best for |
+|-------|----------|
+| `luma` | Sleek, developer-focused docs with a clean, minimal aesthetic |
+| `willow` | Minimal and elegant sites that let content take center stage |
+| `palm` | Spacious layouts with generous whitespace for narrative-heavy docs |
+| `almond` | Approachable, friendly docs aimed at a broad or non-technical audience |
+| `aspen` | Bold, technical docs with strong typographic hierarchy |
+| `maple` | Warm, sidebar-centric layouts suited to large reference libraries |
+| `sequoia` | Dense, information-rich layouts optimized for API-heavy references |
+
+Set your theme with the `theme` field:
+
+```json
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Acme Docs",
+  "theme": "luma"
+}
+```
+
+Swap the value to any of the seven theme names and push — your site will rebuild with the new theme automatically.
+
+## Colors
+
+Use the `colors` object to apply your brand palette. The `primary` color is required; `light` and `dark` let you fine-tune the accent color for each color scheme independently.
+
+```json
+{
+  "colors": {
+    "primary": "#0F172A",
+    "light": "#6366F1",
+    "dark": "#818CF8"
+  }
+}
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `colors.primary` | Yes | Your main brand color. Used for links, active sidebar items, buttons, and other interactive elements in both light and dark mode when mode-specific overrides are not set. |
+| `colors.light` | No | Accent color applied in **light mode** only. Overrides `primary` for interactive elements when the reader's system or preference is set to light. |
+| `colors.dark` | No | Accent color applied in **dark mode** only. Overrides `primary` for interactive elements when the reader's system or preference is set to dark. |
+
+<Info>
+  All color values must be **six-digit hex strings** (e.g. `"#6366F1"`). Three-digit shorthand hex values and CSS color names are not supported.
+</Info>
+
+## Logo
+
+Provide separate logo images for light and dark mode so your logo always looks crisp regardless of the reader's color scheme preference. Both `logo.light` and `logo.dark` accept a local file path relative to your repo root or a fully-qualified URL.
+
+```json
+{
+  "logo": {
+    "light": "/logo/acme-light.svg",
+    "dark": "/logo/acme-dark.svg"
+  }
+}
+```
+
+You can also reference hosted assets:
+
+```json
+{
+  "logo": {
+    "light": "https://cdn.acme.com/logo-light.svg",
+    "dark": "https://cdn.acme.com/logo-dark.svg"
+  }
+}
+```
+
+<Tip>
+  Use **SVG format** for your logo whenever possible. SVGs are resolution-independent, so your logo will look sharp on high-DPI (Retina) displays and at any zoom level without any extra effort.
+</Tip>
+
+If you only have a single logo that works on both backgrounds, you can set both fields to the same path:
+
+```json
+{
+  "logo": {
+    "light": "/logo/acme.svg",
+    "dark": "/logo/acme.svg"
+  }
+}
+```
+
+## Favicon
+
+The favicon appears in the browser tab and bookmark bar. Set it using the `favicon` field with a local path or URL.
+
+```json
+{
+  "favicon": "/favicon.svg"
+}
+```
+
+**Supported formats:**
+
+| Format | Notes |
+|--------|-------|
+| `.svg` | Recommended. Scales perfectly at all sizes; supported by all modern browsers. |
+| `.ico` | Traditional format; good for maximum compatibility with older browsers. |
+| `.png` | Works well at 32×32 px or 64×64 px; avoid low-resolution source files. |
+
+You can also point `favicon` to a hosted URL:
+
+```json
+{
+  "favicon": "https://cdn.acme.com/favicon.svg"
+}
+```
+
+## Putting it all together
+
+Here is a complete branding block combining all of the options above:
+
+```json
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Acme Docs",
+  "theme": "aspen",
+  "colors": {
+    "primary": "#1E293B",
+    "light": "#6366F1",
+    "dark": "#818CF8"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  }
+}
+```
+
+For the full list of `docs.json` fields beyond branding — including navbar, footer, and navigation — see [Settings](/configuration/settings).

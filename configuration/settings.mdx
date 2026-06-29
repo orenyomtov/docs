@@ -1,0 +1,166 @@
+---
+title: "Configure your Mintlify docs with docs.json"
+sidebarTitle: "Settings"
+description: "The docs.json file controls your site name, theme, colors, logo, favicon, navbar, and footer. Learn every top-level option with examples."
+---
+
+The `docs.json` file is the single source of truth for your Mintlify site configuration. Every aspect of your site — from its name and visual theme to navigation structure, navbar links, and footer socials — is controlled through this one file. When you push a change to `docs.json`, Mintlify automatically rebuilds and redeploys your site.
+
+<Note>
+  `docs.json` must live in the **root** of your connected repository. Mintlify will not detect it if it is placed in a subdirectory.
+</Note>
+
+## Complete example
+
+The following example shows all major top-level fields together. You can use it as a starting point and remove any sections you don't need.
+
+```json
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Acme Docs",
+  "theme": "luma",
+  "colors": {
+    "primary": "#0F172A",
+    "light": "#6366F1",
+    "dark": "#818CF8"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      { "label": "Blog", "href": "https://acme.com/blog" },
+      { "label": "Support", "href": "https://acme.com/support" }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get started",
+      "href": "https://app.acme.com/signup"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "quickstart", "development"]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/settings",
+              "configuration/navigation",
+              "configuration/branding"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["api-reference/introduction"]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/acme",
+      "github": "https://github.com/acme",
+      "linkedin": "https://linkedin.com/company/acme"
+    }
+  },
+  "contextual": {
+    "options": ["copy", "chatgpt", "claude"]
+  }
+}
+```
+
+## Top-level fields
+
+<ParamField path="$schema" type="string">
+  The JSON schema URL for `docs.json`. Always set this to `https://mintlify.com/docs.json` to get editor autocompletion and validation in VS Code and other schema-aware editors.
+</ParamField>
+
+<ParamField path="name" type="string" required>
+  The name of your documentation site. This appears in the browser tab title and is used as alt text for the logo.
+</ParamField>
+
+<ParamField path="theme" type="string">
+  The visual theme for your site. Choose from `luma`, `willow`, `palm`, `almond`, `aspen`, `maple`, or `sequoia`. Each theme ships with a unique layout, typography, and component style. See [Branding](/configuration/branding) for a full comparison.
+</ParamField>
+
+<ParamField path="colors" type="object">
+  Brand color configuration.
+
+  <ParamField path="colors.primary" type="string" required>
+    Your primary brand color as a hex value (e.g. `"#0F172A"`). Used for links, active navigation items, and interactive elements.
+  </ParamField>
+
+  <ParamField path="colors.light" type="string">
+    An optional accent color applied in light mode. Defaults to `colors.primary` if omitted.
+  </ParamField>
+
+  <ParamField path="colors.dark" type="string">
+    An optional accent color applied in dark mode. Defaults to `colors.primary` if omitted.
+  </ParamField>
+</ParamField>
+
+<ParamField path="favicon" type="string">
+  Path or URL to your favicon file. Supports `.svg`, `.ico`, and `.png` formats. Local paths are relative to the repo root (e.g. `"/favicon.svg"`).
+</ParamField>
+
+<ParamField path="logo" type="object">
+  Logo image configuration.
+
+  <ParamField path="logo.light" type="string">
+    Path or URL to the logo image displayed in **light mode**.
+  </ParamField>
+
+  <ParamField path="logo.dark" type="string">
+    Path or URL to the logo image displayed in **dark mode**.
+  </ParamField>
+</ParamField>
+
+<ParamField path="navbar" type="object">
+  Controls the top navigation bar.
+
+  <ParamField path="navbar.links" type="array">
+    An array of `{ label, href }` objects rendered as plain links in the navbar.
+  </ParamField>
+
+  <ParamField path="navbar.primary" type="object">
+    The primary call-to-action in the navbar. Use `{ type: "button", label, href }` for a button or `{ type: "github", href }` to display a GitHub star count.
+  </ParamField>
+</ParamField>
+
+<ParamField path="navigation" type="object" required>
+  Defines the structure of your sidebar navigation using `tabs`, `groups`, and `pages`. See [Navigation](/configuration/navigation) for full details.
+</ParamField>
+
+<ParamField path="footer" type="object">
+  Footer configuration.
+
+  <ParamField path="footer.socials" type="object">
+    An object mapping social platform keys to URLs. Supported keys include `x`, `github`, `linkedin`, `youtube`, `discord`, and more.
+  </ParamField>
+</ParamField>
+
+<ParamField path="contextual" type="object">
+  Controls the contextual action menu that appears when readers select text on a page.
+
+  <ParamField path="contextual.options" type="array">
+    An array of enabled actions. Available options: `"copy"`, `"chatgpt"`, `"claude"`.
+  </ParamField>
+</ParamField>
+
+<Tip>
+  Ready to fine-tune your site's look and feel? Head to [Branding](/configuration/branding) to learn how to configure your logo, colors, and theme in detail.
+</Tip>

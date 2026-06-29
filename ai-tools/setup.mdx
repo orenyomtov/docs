@@ -1,0 +1,69 @@
+---
+title: "Set up AI writing tools with the Mintlify skill"
+sidebarTitle: "AI Setup"
+description: "Install the Mintlify skill for Claude Code, Cursor, or Windsurf to give your AI assistant full knowledge of Mintlify components and writing standards."
+---
+
+The Mintlify skill is a single-command install that gives your AI coding tool complete knowledge of Mintlify — components, config options, and writing standards. Once installed, your AI assistant can help you create pages, wire up navigation, and use every Mintlify component correctly without you leaving your editor.
+
+## Install the skill
+
+Run the following command in your terminal from your docs repository:
+
+```bash
+npx skills add https://mintlify.com/docs
+```
+
+<Note>
+  This command installs the Mintlify skill for whichever AI tools are already configured on your system. If you add a new tool later, re-run the command to install the skill for it as well.
+</Note>
+
+## Supported tools
+
+<CardGroup cols={3}>
+  <Card title="Claude Code" icon="terminal" href="/ai-tools/setup">
+    Works with Claude Code via MCP. The skill gives Claude deep knowledge of every Mintlify component and configuration option.
+  </Card>
+  <Card title="Cursor" icon="code" href="/ai-tools/setup">
+    Integrates with Cursor's AI assistant. Ask Cursor to create pages, add components, or update your navigation — it knows Mintlify's conventions.
+  </Card>
+  <Card title="Windsurf" icon="wind" href="/ai-tools/setup">
+    Works with Windsurf's Cascade AI. Cascade can scaffold new sections, fix frontmatter, and suggest the right components for your content.
+  </Card>
+</CardGroup>
+
+## What the skill includes
+
+Once installed, the skill gives your AI assistant access to:
+
+- **Complete component reference** — every Mintlify component (Card, Steps, CodeGroup, Tabs, Callouts, and more) with correct usage examples
+- **Writing standards** — Mintlify's style guide, frontmatter rules, and page structure conventions
+- **Workflow guidance** — how to create pages, set up navigation, manage versioning, and configure your docs site
+- **`docs.json` configuration reference** — all top-level keys, navigation schema, branding options, and contextual action settings
+
+## Using MCP directly
+
+If your AI tool supports MCP natively, you can connect to the Mintlify MCP servers directly without using the `npx skills` command.
+
+There are two Mintlify MCP servers:
+
+- **`https://mcp.mintlify.com`** — for editing your docs. Connects your AI tool to your docs repository so it can read and write pages.
+- **`https://www.mintlify.com/docs/mcp`** — for querying Mintlify's documentation knowledge. Gives your AI assistant searchable access to Mintlify's component library, guides, and configuration reference.
+
+To add the editing MCP server to your tool's configuration, use a format similar to this:
+
+```json
+{
+  "mcpServers": {
+    "mintlify": {
+      "url": "https://mcp.mintlify.com"
+    }
+  }
+}
+```
+
+Refer to your specific tool's documentation for the exact configuration format — the key names may differ slightly between Claude Code, Cursor, and Windsurf.
+
+<Tip>
+  The skill works best when you customize your `AGENTS.md` file with your project's terminology, tone of voice, and style preferences. This gives your AI assistant the context it needs to write docs that sound like you — not like a generic template.
+</Tip>

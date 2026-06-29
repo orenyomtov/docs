@@ -1,0 +1,60 @@
+---
+title: "Set up local preview for Mintlify docs"
+sidebarTitle: "Local Preview"
+description: "Install the Mintlify CLI to preview your docs locally, validate your configuration, and check for broken links before deploying."
+---
+
+The Mintlify CLI gives you a full local preview of your docs site so you can write, iterate, and validate your content before it ever reaches production. Changes hot-reload instantly, and built-in commands help you catch configuration errors and broken links early.
+
+## Installation
+
+Install the CLI globally with npm, or run it on demand with npx — no installation required.
+
+<CodeGroup>
+  ```bash npm
+  npm i -g mint
+  ```
+
+  ```bash npx (no install)
+  npx mint dev
+  ```
+</CodeGroup>
+
+## Start the preview
+
+From your repo root — the directory that contains your `docs.json` file — run:
+
+```bash
+mint dev
+```
+
+Your docs site will be available at [http://localhost:3000](http://localhost:3000). The server watches your files and hot-reloads automatically whenever you save a change, so you don't need to restart between edits.
+
+## Available commands
+
+| Command | Description |
+|---|---|
+| `mint dev` | Start the local preview server at http://localhost:3000 |
+| `mint validate` | Validate your `docs.json` structure and page references |
+| `mint broken-links` | Scan your docs for broken internal links |
+| `mint update` | Update the CLI to the latest version |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="My local preview isn't starting">
+    Run `mint update` to make sure you have the latest version of the CLI. Also confirm that you're running the command from the directory that contains your `docs.json` file — the CLI looks for that file in the current working directory.
+
+    ```bash
+    mint update
+    ```
+  </Accordion>
+
+  <Accordion title="A page shows as 404">
+    Every page you create must be listed in your `docs.json` under the `navigation` field. Open `docs.json` and ensure the page's slug is included in the appropriate navigation group. Pages that exist as `.mdx` files but aren't referenced in `navigation` won't be routed.
+  </Accordion>
+
+  <Accordion title="Changes aren't reflecting">
+    Save the file — the local preview server hot-reloads automatically on each save. If the page still doesn't update, check your terminal for any build errors logged by the CLI.
+  </Accordion>
+</AccordionGroup>

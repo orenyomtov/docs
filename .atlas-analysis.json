@@ -1,0 +1,78 @@
+{
+  "projectType": "saas",
+  "projectName": "Mintlify",
+  "projectDescription": "A documentation platform that lets teams create, customize, and deploy beautiful docs sites from a Git-connected repository.",
+  "theme": "luma",
+  "primaryColor": "#54545c",
+  "lightColor": null,
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "development"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/settings",
+              "configuration/navigation",
+              "configuration/branding"
+            ]
+          },
+          {
+            "group": "Writing Content",
+            "pages": [
+              "writing/pages",
+              "writing/components",
+              "writing/code-blocks"
+            ]
+          },
+          {
+            "group": "Publishing",
+            "pages": [
+              "publishing/deployment",
+              "publishing/custom-domain",
+              "publishing/versioning"
+            ]
+          },
+          {
+            "group": "AI Tools",
+            "pages": [
+              "ai-tools/overview",
+              "ai-tools/setup"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Git-connected deployment — push to deploy docs automatically",
+    "MDX pages with rich component library (cards, callouts, steps, tabs)",
+    "Customizable branding — colors, fonts, logo, favicon",
+    "Flexible navigation with tabs, groups, and anchors",
+    "Built-in search and contextual AI actions",
+    "Local preview with the Mintlify CLI",
+    "AI-assisted writing via skills integration",
+    "API reference pages with OpenAPI support"
+  ],
+  "publicApiSurface": [
+    "mint dev (local preview)",
+    "mint validate (structure validation)",
+    "mint broken-links (link checker)",
+    "mint update (CLI update)",
+    "npx skills add https://mintlify.com/docs (AI skill install)",
+    "docs.json configuration schema",
+    "MDX frontmatter (title, description, sidebarTitle, icon)",
+    "Navigation: tabs, groups, pages, anchors",
+    "Components: Card, CardGroup, Steps, Step, Tip, Note, Warning, Accordion, Tabs, Tab, CodeGroup"
+  ]
+}

@@ -1,0 +1,63 @@
+---
+title: "AI tools and contextual actions in Mintlify"
+sidebarTitle: "Overview"
+description: "Mintlify integrates with AI writing tools and surfaces contextual actions on every page so readers can instantly open docs in ChatGPT, Claude, or Cursor."
+---
+
+Mintlify has two distinct AI layers working together: one for **writers** — AI coding tools equipped with the Mintlify skill that help you author and maintain your docs — and one for **readers** — contextual page actions that let visitors instantly open any page in ChatGPT, Claude, Cursor, and more. Together, they make your documentation smarter at every step of the lifecycle.
+
+## For writers: AI coding tools
+
+Give your AI assistant complete knowledge of Mintlify by installing the Mintlify skill with a single command:
+
+```bash
+npx skills add https://mintlify.com/docs
+```
+
+The skill works with the most popular AI coding tools:
+
+- **Claude Code** — via MCP integration
+- **Cursor** — via Cursor's built-in AI assistant
+- **Windsurf** — via Windsurf's Cascade AI
+
+Once installed, your AI assistant gains full awareness of Mintlify components, writing standards, and workflow guidance — so it can help you create pages, configure navigation, and use components correctly without you having to look anything up.
+
+For step-by-step instructions, see [Set up AI writing tools](/ai-tools/setup).
+
+## For readers: contextual actions
+
+Contextual actions appear as quick-action buttons on every page of your docs site. They let readers copy content, view the source, or open the page directly in their preferred AI tool — all in one click.
+
+You configure contextual actions in your `docs.json` under the `contextual.options` key. The available options are:
+
+| Option | What it does |
+|--------|-------------|
+| `"copy"` | Copies the page content to the clipboard |
+| `"view"` | Opens the raw page source |
+| `"chatgpt"` | Opens the page in ChatGPT |
+| `"claude"` | Opens the page in Claude |
+| `"perplexity"` | Opens the page in Perplexity |
+| `"mcp"` | Loads the page via MCP into a compatible AI tool |
+| `"cursor"` | Opens the page in Cursor |
+| `"vscode"` | Opens the page in VS Code |
+
+Add the following to your `docs.json` to enable all contextual actions:
+
+```json
+"contextual": {
+  "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+}
+```
+
+You can include any subset of these options — only the buttons you list will appear on your pages.
+
+## MCP servers
+
+Mintlify exposes two MCP servers depending on your use case:
+
+- **Editing your docs** — connect your MCP-compatible tool to `https://mcp.mintlify.com` to read and write pages in your docs repository.
+- **Querying Mintlify's own documentation** — use `https://www.mintlify.com/docs/mcp` to give your AI assistant searchable knowledge of Mintlify's component library, configuration options, and guides.
+
+<Tip>
+  Enable the `"mcp"` option in `contextual.options` so readers can load any page directly into their AI tools with one click. It's one of the most effective ways to make your docs instantly useful to developer audiences.
+</Tip>
